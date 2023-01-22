@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 
 module.exports = {
     entry: './src/client/index.js',
@@ -21,6 +22,20 @@ module.exports = {
             }
         ]
     },
+    output:{
+        libraryTarget: 'var',
+        library: 'Client',
+      },
+    resolve: {
+        // solution taken from: https://knowledge.udacity.com/questions/585935
+        fallback: {
+          fs: false,
+          net: false,
+          assert: false,
+          util: false,
+          async_hooks: false,
+        },
+      },
     plugins: [
         new HtmlWebPackPlugin({
             template: "./src/client/views/index.html",
@@ -34,6 +49,8 @@ module.exports = {
             // Automatically remove all unused webpack assets on rebuild
             cleanStaleWebpackAssets: true,
             protectWebpackAssets: false
+        }), 
+        new NodePolyfillPlugin({
         })
     ]
 }

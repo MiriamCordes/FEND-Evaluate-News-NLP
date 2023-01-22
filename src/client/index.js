@@ -11,3 +11,9 @@ console.log(checkForName);
 
 alert("I EXIST")
 console.log("CHANGE!!");
+
+// solution taken from: https://knowledge.udacity.com/questions/793705
+document.getElementById("form")
+    .addEventListener("click", handleSubmit)
+
+export{handleSubmit}
