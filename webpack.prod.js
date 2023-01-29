@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
     entry: './src/client/index.js',
@@ -36,6 +37,7 @@ module.exports = {
             filename: "./index.html",
         }),
         new NodePolyfillPlugin({
-        })
+        }), 
+        new WorkboxPlugin.GenerateSW()
     ]
 }
