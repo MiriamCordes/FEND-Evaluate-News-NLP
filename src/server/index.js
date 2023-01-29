@@ -1,8 +1,6 @@
 const dotenv = require('dotenv');
-dotenv.config({ path: '../../.env'});
-const apiKey = process.env.API_KEY;
+dotenv.config();
 
-var path = require('path')
 const express = require('express')
 
 const mockAPIResponse = require('./mockAPI.js')
@@ -13,7 +11,7 @@ const cors = require('cors');
 
 const app = express()
 
-
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cors());
 //app.use(express.static('src/client'))
@@ -36,17 +34,12 @@ app.get('/test', function (req, res) {
 })
 
 app.post('/sentimentAnalysis', async function(req, res) {
-    console.log("in post function in server.js")
-    const serverRes = await fetch('https://api.meaningcloud.com/sentiment-2.1' + 'key=' + apiKey + 'url=' +  req.body.formText  + 'lang=auto');
+    const serverRes = await fetch('https://api.meaningcloud.com/sentiment-2.1' + '?key=' + process.env.API_KEY + '&url=' +  req.body.data  + '&lang=auto');
     try {
         const data = await serverRes.json();
+        console.log("data: " + data);
         res.send(data);
     } catch (error) {
         console.log("Error fetching sentiment analysis: ", error);
     }
 })
-
-export{
-    handleSubmit,
-    checkForName
-    }

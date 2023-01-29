@@ -22,10 +22,6 @@ module.exports = {
             }
         ]
     },
-    output:{
-        libraryTarget: 'var',
-        library: 'Client',
-      },
     resolve: {
         // solution taken from: https://knowledge.udacity.com/questions/585935
         fallback: {

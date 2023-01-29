@@ -37,9 +37,5 @@ module.exports = {
         }),
         new NodePolyfillPlugin({
         })
-    ],
-    output:{
-        libraryTarget: 'var',
-        library: 'Client',
-      }
+    ]
 }
